@@ -1,0 +1,223 @@
+#font pango:monospace 11
+font pango:DejaVu Sans Mono 11
+
+# the arrows is not convenient
+set $up k
+set $down j
+set $left h
+set $right l
+
+# use Mouse+Mod1 to drag floating windows to their wanted position
+#floating_modifier Mod1
+focus_follows_mouse no
+
+#|-------------------Focusing on workspaces and windows-------------------|
+#-------------------------------------------------------------------------|
+
+# change focus
+bindsym Mod1+$left focus left
+bindsym Mod1+$down focus down
+bindsym Mod1+$up focus up
+bindsym Mod1+$right focus right
+
+# move focused window
+bindsym Mod1+Shift+$left move left
+bindsym Mod1+Shift+$down move down
+bindsym Mod1+Shift+$up move up
+bindsym Mod1+Shift+$right move right
+
+# alternatively, you can use the cursor keys:
+bindsym Mod1+Shift+Left move left
+bindsym Mod1+Shift+Down move down
+bindsym Mod1+Shift+Up move up
+bindsym Mod1+Shift+Right move right
+
+#|----------------Workspace Settings-----------------------|
+#|---------------------------------------------------------|
+
+set $ws1 "1:General  "
+set $ws2 "2:Editor   "
+set $ws3 "3:Music  "
+set $ws4 "4:Videos  "
+set $ws5 "5:Browser   "
+set $ws6 "6:IDEs "
+set $ws7 "7:ThunderBird  "
+set $ws8 "8: WS8"
+set $ws9 "9: WS9"
+set $ws0 "10: WS10"
+
+# switch to workspace
+bindsym Mod1+1 workspace $ws1
+bindsym Mod1+2 workspace $ws2
+bindsym Mod1+3 workspace $ws3
+bindsym Mod1+4 workspace $ws4
+bindsym Mod1+5 workspace $ws5
+bindsym Mod1+6 workspace $ws6
+bindsym Mod1+7 workspace $ws7
+bindsym Mod1+8 workspace $ws8
+bindsym Mod1+9 workspace $ws9
+bindsym Mod1+0 workspace $ws0
+
+# move focused container to workspace
+bindsym Mod1+Shift+1 move container to workspace $ws1
+bindsym Mod1+Shift+2 move container to workspace $ws2
+bindsym Mod1+Shift+3 move container to workspace $ws3
+bindsym Mod1+Shift+4 move container to workspace $ws4
+bindsym Mod1+Shift+5 move container to workspace $ws5
+bindsym Mod1+Shift+6 move container to workspace $ws6
+bindsym Mod1+Shift+7 move container to workspace $ws7
+bindsym Mod1+Shift+8 move container to workspace $ws8
+bindsym Mod1+Shift+9 move container to workspace $ws9
+bindsym Mod1+Shift+0 move container to workspace $ws10
+
+#-----------------------Custom modes-----------------------------|
+#----------------------------------------------------------------|
+
+
+bindsym Mod1+Shift+r reload
+
+mode "RESIZE"
+{
+	bindsym h resize shrink width 10px
+	bindsym j resize grow height 10px
+	bindsym k resize shrink height 10px
+	bindsym l resize grow width 10px
+
+	bindsym Escape mode "default"
+	bindsym Return mode "default"
+}
+
+bindsym Mod1+r mode "RESIZE"
+
+mode "POWERMODE"
+{
+	bindsym l exec logout
+	bindsym s exec shutdown +0
+	bindsym r exec restart
+	bindsym i exec sh ~/.config/i3/screencast.sh; mode "default"
+	bindsym Escape mode "default"
+}
+
+bindsym Mod1+p mode "POWERMODE"
+mode "APPLAUNCHER"
+{
+	bindsym t exec thunar;mode "default"
+	bindsym f exec firefox;mode "default"
+	Bindsym c exec chromium-browser;mode "default"
+
+	bindsym Escape mode "default"
+}
+
+Bindsym Mod1+a mode "APPLAUNCHER"
+
+
+#|-----------------------Colorschemes :) :) ----------------------|
+#|----------------------------------------------------------------|
+
+#declare variables for window colors
+set $bg-color			#2f343f
+set $inactive-bg-color	#2f343f
+set $text-color			#f3f4f5
+set $inactive-text-color	#878E8D
+set $urgent-bg-color		#2f343f
+
+#window colors table
+#window						border					background				text					indicator
+client.focused				$bg-color				$bg-color				$text-color				#00ff00
+client.unfocused			$inactive-bg-color		$inactive-bg-color		$inactive-text-color	#00ff00
+client.focused_inactive		$inactive-bg-color		$inactive-bg-color		$inactive-text-color	#00ff00
+client.urgent				$urgent-bg-color		$urgent-bg-color		$text-color				#00ff00
+
+hide_edge_borders both
+
+#configuration for statusbar
+bar {
+	status_command i3blocks -c ~/.config/i3/i3blocks.conf
+		tray_output primary
+		position top
+		colors
+		{
+			background $bg-color
+			separator #757575
+				#type					border					background				text
+				focused_workspace		#07A9F8					#07A9F8					#000000
+				inactive_workspace		$inactive-bg-color		$inactive-bg-color		$text-color
+				urgent_workspace		$urgent-bg-color		$urgent-bg-color		$text-color
+		}
+}
+
+#|-----------------Bindsyms--------------------|
+#|---------------------------------------------|
+
+bindsym Mod1+d exec rofi -show run -width 100 -lines 5 -padding 450 -bg "$bg-color" -bc "$bg-color" -hlbg "$bg-color" -fg "$font-color" -bw 0 -hlfg "#9fffcd" -eh 2 -opacity 87 -columns 2
+bindsym XF86AudioRaiseVolume exec "amixer -D pulse sset Master '5%+'"
+bindsym XF86AudioLowerVolume exec "amixer -D pulse sset Master '5%-'"
+
+# start a terminal
+bindsym Mod1+Return exec i3-sensible-terminal
+
+# kill focused window
+bindsym Mod1+q kill
+#bindsym Mod1+d exec dmenu_run
+#bindsym Mod1+d exec --no-startup-id i3-dmenu-desktop
+#
+# split in horizontal orientation
+bindsym Mod1+shift+v split h
+# split in vertical orientation
+bindsym Mod1+v split v
+
+# enter fullscreen mode for the focused container
+bindsym Mod1+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+# TODO:make this into a mode
+bindsym Mod1+s layout stacking
+bindsym Mod1+w layout tabbed
+bindsym Mod1+e layout toggle split
+
+# toggle tiling / floating
+bindsym Mod1+Shift+space floating toggle
+# change focus between tiling / floating windows
+bindsym Mod1+space focus mode_toggle
+
+# focus the parent container
+#bindsym Mod1+a focus parent
+# focus the child container
+#bindsym Mod1+d focus child
+
+# move the currently focused window to the scratchpad
+bindsym Mod1+Shift+minus move scratchpad
+# Show the next scratchpad window or hide the focused scratchpad window.
+# If there are multiple scratchpad windows, this command cycles through them.
+bindsym Mod1+minus scratchpad show
+
+#|--------------------Workspace Assigns & Startup---------------------|
+#|--------------------------------------------------------------------|
+
+#  use xprop to determine window characterstics
+#  - instance		:window instance = 1st part of WM_CLASS
+#  - class			:window class    = 2nd part of WM_CLASS
+#  - window_role	:window role     = WM_WINDOW_ROLE
+
+#Focus and float settings
+for_window [class="Chromium-browser"]		focus
+for_window [class="Firefox"]				focus
+
+
+#assign workspaces to different apps
+assign [class="Chromium-browser"]	$ws5
+assign [class="Firefox"]			$ws5
+assign [class="Thunderbird"]		$ws7
+assign [window_role="cmus"]			$ws3
+assign [class="jetbrains-studio"]	$ws6
+
+
+#Startup applications
+exec gnome-terminal --role=cmus -e cmus
+exec thunderbird
+exec_always feh --bg-scale ~/Pictures/fma1.png
+exec_always compton -f
+exec --no-startup-id nm-applet
+
+
+
