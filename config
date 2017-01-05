@@ -1,4 +1,3 @@
-#font pango:monospace 11
 font pango:DejaVu Sans Mono 11
 
 # the arrows is not convenient
@@ -10,6 +9,13 @@ set $right l
 # use Mouse+Mod1 to drag floating windows to their wanted position
 #floating_modifier Mod1
 focus_follows_mouse no
+
+#for_window [class="^.*"] border pixel 0
+gaps inner 8
+gaps outer 3
+
+smart_gaps on
+
 
 #|-------------------Focusing on workspaces and windows-------------------|
 #-------------------------------------------------------------------------|
@@ -35,16 +41,16 @@ bindsym Mod1+Shift+Right move right
 #|----------------Workspace Settings-----------------------|
 #|---------------------------------------------------------|
 
-set $ws1 "1:General  "
-set $ws2 "2:Editor   "
-set $ws3 "3:Music  "
-set $ws4 "4:Videos  "
-set $ws5 "5:Browser   "
-set $ws6 "6:IDEs "
-set $ws7 "7:ThunderBird  "
-set $ws8 "8: WS8"
-set $ws9 "9: WS9"
-set $ws0 "10: WS10"
+set $ws1 "1:<b>General</b>  "
+set $ws2 "2:<b>Editor</b>   "
+set $ws3 "3:<b>Music</b>  "
+set $ws4 "4:<b>Videos</b>  "
+set $ws5 "5:<b>Browser</b>   "
+set $ws6 "6:<b>IDEs</b> "
+set $ws7 "7:<b>ThunderBird</b>  "
+set $ws8 "8:<b> WS8</b>"
+set $ws9 "9:<b> WS9</b>"
+set $ws0 "10:<b> WS10</b>"
 
 # switch to workspace
 bindsym Mod1+1 workspace $ws1
@@ -68,7 +74,7 @@ bindsym Mod1+Shift+6 move container to workspace $ws6
 bindsym Mod1+Shift+7 move container to workspace $ws7
 bindsym Mod1+Shift+8 move container to workspace $ws8
 bindsym Mod1+Shift+9 move container to workspace $ws9
-bindsym Mod1+Shift+0 move container to workspace $ws10
+bindsym Mod1+Shift+0 move container to workspace $ws0
 
 #-----------------------Custom modes-----------------------------|
 #----------------------------------------------------------------|
@@ -140,8 +146,9 @@ bar {
 			background $bg-color
 			separator #757575
 				#type					border					background				text
-				focused_workspace		#07A9F8					#07A9F8					#000000
-				inactive_workspace		$inactive-bg-color		$inactive-bg-color		$text-color
+				focused_workspace		#07A9F8					$bg-color				#07A9F8
+				#inactive_workspace		#fb0b0b					$inactive-bg-color		#fb0b0b
+				inactive_workspace		$inactive-bg-color		$inactive-bg-color		$inactive-text-color
 				urgent_workspace		$urgent-bg-color		$urgent-bg-color		$text-color
 		}
 }
@@ -149,7 +156,7 @@ bar {
 #|-----------------Bindsyms--------------------|
 #|---------------------------------------------|
 
-bindsym Mod1+d exec rofi -show run -width 100 -lines 5 -padding 450 -bg "$bg-color" -bc "$bg-color" -hlbg "$bg-color" -fg "$font-color" -bw 0 -hlfg "#9fffcd" -eh 2 -opacity 87 -columns 2
+bindsym Mod1+d exec rofi -show run -width 100 -lines 5 -padding 450 -bg "$bg-color" -bc "$bg-color" -hlbg "$bg-color" -fg "$font-color" -bw 0 -hlfg "#9575cd" -eh 2 -opacity 87 -columns 2
 bindsym XF86AudioRaiseVolume exec "amixer -D pulse sset Master '5%+'"
 bindsym XF86AudioLowerVolume exec "amixer -D pulse sset Master '5%-'"
 
@@ -215,7 +222,8 @@ assign [class="jetbrains-studio"]	$ws6
 #Startup applications
 exec gnome-terminal --role=cmus -e cmus
 exec thunderbird
-exec_always feh --bg-scale ~/Pictures/fma1.png
+#exec_always feh --bg-scale ~/Pictures/fma1.png
+exec_always feh --bg-scale ~/.config/i3/anime3.png
 exec_always compton -f
 exec --no-startup-id nm-applet
 
