@@ -129,7 +129,7 @@ set $urgent-bg-color		#2f343f
 
 #window colors table
 #window						border					background				text					indicator
-client.focused				$bg-color				$bg-color				$text-color				#00ff00
+client.focused				$bg-color				$bg-color				$ffffff					#00ff00
 client.unfocused			$inactive-bg-color		$inactive-bg-color		$inactive-text-color	#00ff00
 client.focused_inactive		$inactive-bg-color		$inactive-bg-color		$inactive-text-color	#00ff00
 client.urgent				$urgent-bg-color		$urgent-bg-color		$text-color				#00ff00
@@ -146,10 +146,9 @@ bar {
 			background $bg-color
 			separator #757575
 				#type					border					background				text
-				focused_workspace		#07A9F8					$bg-color				#07A9F8
-				#inactive_workspace		#fb0b0b					$inactive-bg-color		#fb0b0b
-				inactive_workspace		$inactive-bg-color		$inactive-bg-color		$inactive-text-color
-				urgent_workspace		$urgent-bg-color		$urgent-bg-color		$text-color
+				focused_workspace		#afff00					$bg-color				#afff00
+				inactive_workspace		$inactive-bg-color		$inactive-bg-color		$text-color
+				urgent_workspace		$text-color				$inactive-bg-color		$text-color
 		}
 }
 
@@ -216,7 +215,6 @@ assign [class="Chromium-browser"]	$ws5
 assign [class="Firefox"]			$ws5
 assign [class="Thunderbird"]		$ws7
 assign [window_role="cmus"]			$ws3
-assign [class="jetbrains-studio"]	$ws6
 
 
 #Startup applications
