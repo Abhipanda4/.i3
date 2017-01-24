@@ -1,6 +1,6 @@
 font pango:DejaVu Sans Mono 11
 
-# the arrows is not convenient
+# arrows are not convenient
 set $up k
 set $down j
 set $left h
@@ -12,7 +12,7 @@ focus_follows_mouse no
 
 #for_window [class="^.*"] border pixel 0
 gaps inner 8
-gaps outer 3
+gaps outer 0
 
 smart_gaps on
 
@@ -42,15 +42,15 @@ bindsym Mod1+Shift+Right move right
 #|---------------------------------------------------------|
 
 set $ws1 "1:<b>General</b>  "
-set $ws2 "2:<b>Editor</b>   "
-set $ws3 "3:<b>Music</b>  "
+set $ws2 "2:<b>Editor</b>  "
+set $ws3 "3:<b>Music</b>"
 set $ws4 "4:<b>Videos</b>  "
-set $ws5 "5:<b>Browser</b>   "
+set $ws5 "5:<b>Browser</b>  "
 set $ws6 "6:<b>IDEs</b> "
 set $ws7 "7:<b>ThunderBird</b>  "
-set $ws8 "8:<b> WS8</b>"
+set $ws8 "8:<b>Evince</b>"
 set $ws9 "9:<b> WS9</b>"
-set $ws0 "10:<b> WS10</b>"
+set $ws0 "10:<b>Torrents</b>"
 
 # switch to workspace
 bindsym Mod1+1 workspace $ws1
@@ -76,11 +76,14 @@ bindsym Mod1+Shift+8 move container to workspace $ws8
 bindsym Mod1+Shift+9 move container to workspace $ws9
 bindsym Mod1+Shift+0 move container to workspace $ws0
 
+bindsym Mod1 +Tab workspace back_and_forth
+
 #-----------------------Custom modes-----------------------------|
 #----------------------------------------------------------------|
 
 
-bindsym Mod1+Shift+r reload
+#bindsym Mod1+Shift+r reload
+bindsym Mod1+Shift+r exec i3-msg restart
 
 mode "RESIZE"
 {
@@ -97,12 +100,21 @@ bindsym Mod1+r mode "RESIZE"
 
 mode "POWERMODE"
 {
-	bindsym l exec logout
+	bindsym l exec pkill -u $USER
 	bindsym s exec shutdown +0
-	bindsym r exec restart
+	bindsym r exec reboot
 	bindsym i exec sh ~/.config/i3/screencast.sh; mode "default"
 	bindsym Escape mode "default"
 }
+
+mode "CMUS"
+{
+	bindsym c exec cmus-remote -u
+	bindsym z exec cmus-remote -r
+	bindsym b exec cmus-remote -n
+	bindsym Escape mode "default"
+}
+bindsym Mod1+c mode "CMUS"
 
 bindsym Mod1+p mode "POWERMODE"
 mode "APPLAUNCHER"
@@ -110,6 +122,7 @@ mode "APPLAUNCHER"
 	bindsym t exec thunar;mode "default"
 	bindsym f exec firefox;mode "default"
 	Bindsym c exec chromium-browser;mode "default"
+	bindsym a exec sh /usr/local/android-studio/bin/studio.sh; mode "default"
 
 	bindsym Escape mode "default"
 }
@@ -122,10 +135,14 @@ Bindsym Mod1+a mode "APPLAUNCHER"
 
 #declare variables for window colors
 set $bg-color			#2f343f
+set $bar-color			#000000
+set $bg-color			#2f343f
+set $bg-color			#2f343f
 set $inactive-bg-color	#2f343f
 set $text-color			#f3f4f5
 set $inactive-text-color	#878E8D
 set $urgent-bg-color		#2f343f
+set $urgent-bar-color		#ffaf00
 
 #window colors table
 #window						border					background				text					indicator
@@ -138,17 +155,19 @@ hide_edge_borders both
 
 #configuration for statusbar
 bar {
+	i3bar_command i3bar -t
 	status_command i3blocks -c ~/.config/i3/i3blocks.conf
+	font pango:SauceCodePro Nerd Font 11
 		tray_output primary
 		position top
 		colors
 		{
-			background $bg-color
-			separator #757575
+			background $bar-color
+			separator #ffffff
 				#type					border					background				text
-				focused_workspace		#afff00					$bg-color				#afff00
-				inactive_workspace		$inactive-bg-color		$inactive-bg-color		$text-color
-				urgent_workspace		$text-color				$inactive-bg-color		$text-color
+				focused_workspace		#afff00					$bar-color				#afff00
+				inactive_workspace		#888888					$bar-color		$text-color
+				urgent_workspace		$urgent-bar-color		$bar-color		$urgent-bar-color
 		}
 }
 
@@ -158,6 +177,10 @@ bar {
 bindsym Mod1+d exec rofi -show run -width 100 -lines 5 -padding 450 -bg "$bg-color" -bc "$bg-color" -hlbg "$bg-color" -fg "$font-color" -bw 0 -hlfg "#9575cd" -eh 2 -opacity 87 -columns 2
 bindsym XF86AudioRaiseVolume exec "amixer -D pulse sset Master '5%+'"
 bindsym XF86AudioLowerVolume exec "amixer -D pulse sset Master '5%-'"
+
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightness
+
 
 # start a terminal
 bindsym Mod1+Return exec i3-sensible-terminal
@@ -215,13 +238,16 @@ assign [class="Chromium-browser"]	$ws5
 assign [class="Firefox"]			$ws5
 assign [class="Thunderbird"]		$ws7
 assign [window_role="cmus"]			$ws3
+assign [class="qBittorrent"]		$ws0
+assign [class="jetbrains-studio"]	$ws6
+assign [class="Evince"]		$ws8
 
 
 #Startup applications
 exec gnome-terminal --role=cmus -e cmus
 exec thunderbird
-#exec_always feh --bg-scale ~/Pictures/fma1.png
 exec_always feh --bg-scale ~/.config/i3/anime3.png
+#exec_always feh --bg-scale ~/Pictures/fma1.png
 exec_always compton -f
 exec --no-startup-id nm-applet
 
