@@ -1,8 +1,8 @@
 #!/bin/bash
 
-artist=$(cmus-remote -Q|grep artist)
-song=$(cmus-remote -Q|grep title)
-condition=$(cmus-remote -Q|grep status)
+artist=$(cmus-remote -Q|grep -w artist)
+song=$(cmus-remote -Q|grep -w title)
+condition=$(cmus-remote -Q|grep -w status)
 #echo $artist
 #echo $song
 #echo $condition
