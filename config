@@ -16,6 +16,7 @@ gaps outer 0
 
 smart_gaps on
 
+new_window pixel 4
 
 #|-------------------Focusing on workspaces and windows-------------------|
 #-------------------------------------------------------------------------|
@@ -41,16 +42,16 @@ bindsym Mod1+Shift+Right move right
 #|----------------Workspace Settings-----------------------|
 #|---------------------------------------------------------|
 
-set $ws1 "1:<b>General</b>  "
-set $ws2 "2:<b>Editor</b>  "
-set $ws3 "3:<b>Music</b>"
-set $ws4 "4:<b>Videos</b>  "
-set $ws5 "5:<b>Browser</b>  "
-set $ws6 "6:<b>IDEs</b> "
-set $ws7 "7:<b>ThunderBird</b>  "
-set $ws8 "8:<b>Evince</b>"
-set $ws9 "9:<b> WS9</b>"
-set $ws0 "10:<b>Torrents</b>"
+set $ws1 "1:  "
+set $ws2 "2:  "
+set $ws3 "3: "
+set $ws4 "4:  "
+set $ws5 "5:  "
+set $ws6 "6: "
+set $ws7 "7:  "
+set $ws8 "8:"
+set $ws9 "9:"
+set $ws0 "10:"
 
 # switch to workspace
 bindsym Mod1+1 workspace $ws1
@@ -104,19 +105,24 @@ mode "POWERMODE"
 	bindsym s exec shutdown +0
 	bindsym r exec reboot
 	bindsym i exec sh ~/.config/i3/screencast.sh; mode "default"
+
+	bindsym space mode "default"
 	bindsym Escape mode "default"
 }
+
+bindsym Mod1+p mode "POWERMODE"
 
 mode "CMUS"
 {
 	bindsym c exec cmus-remote -u
 	bindsym z exec cmus-remote -r
 	bindsym b exec cmus-remote -n
+
 	bindsym Escape mode "default"
+	bindsym space mode "default"
 }
 bindsym Mod1+c mode "CMUS"
 
-bindsym Mod1+p mode "POWERMODE"
 mode "APPLAUNCHER"
 {
 	bindsym t exec thunar;mode "default"
@@ -125,6 +131,7 @@ mode "APPLAUNCHER"
 	bindsym a exec sh /usr/local/android-studio/bin/studio.sh; mode "default"
 
 	bindsym Escape mode "default"
+	bindsym space mode "default"
 }
 
 Bindsym Mod1+a mode "APPLAUNCHER"
@@ -137,44 +144,47 @@ Bindsym Mod1+a mode "APPLAUNCHER"
 set $bg-color			#2f343f
 set $bar-color			#000000
 set $bg-color			#2f343f
-set $bg-color			#2f343f
 set $inactive-bg-color	#2f343f
 set $text-color			#f3f4f5
 set $inactive-text-color	#878E8D
 set $urgent-bg-color		#2f343f
 set $urgent-bar-color		#ffaf00
+set $border #027372
 
 #window colors table
 #window						border					background				text					indicator
-client.focused				$bg-color				$bg-color				$ffffff					#00ff00
-client.unfocused			$inactive-bg-color		$inactive-bg-color		$inactive-text-color	#00ff00
-client.focused_inactive		$inactive-bg-color		$inactive-bg-color		$inactive-text-color	#00ff00
-client.urgent				$urgent-bg-color		$urgent-bg-color		$text-color				#00ff00
+client.focused				$bg-color				#d78700					#ffffff					$border
+client.unfocused			$inactive-bg-color		$inactive-bg-color		$inactive-text-color	$border
+client.focused_inactive		$inactive-bg-color		$inactive-bg-color		$inactive-text-color	$border
+client.urgent				$urgent-bg-color		$urgent-bg-color		$text-color				$border
 
 hide_edge_borders both
 
 #configuration for statusbar
 bar {
+	status_command i3blocks -c ~/.config/i3/newbar.conf
 	i3bar_command i3bar -t
-	status_command i3blocks -c ~/.config/i3/i3blocks.conf
-	font pango:SauceCodePro Nerd Font 11
-		tray_output primary
+	#font pango:SauceCodePro Nerd Font,awesome 11
+	font xft:Droid Sans Mono, FontAwesome 11
+		tray_output none
 		position top
+		strip_workspace_numbers yes
 		colors
 		{
-			background $bar-color
+			background #2a2c2ceb
 			separator #ffffff
 				#type					border					background				text
-				focused_workspace		#afff00					$bar-color				#afff00
-				inactive_workspace		#888888					$bar-color		$text-color
-				urgent_workspace		$urgent-bar-color		$bar-color		$urgent-bar-color
+				inactive_workspace		#FADE9B					#FADE9B					#000000
+				focused_workspace		#d78700					#d78700					#000000
+				urgent_workspace		$urgent-bar-color		$bar-color				$urgent-bar-color
+				binding_mode			#d78700					#d78700					#000000
 		}
 }
 
 #|-----------------Bindsyms--------------------|
 #|---------------------------------------------|
 
-bindsym Mod1+d exec rofi -show run -width 100 -lines 5 -padding 450 -bg "$bg-color" -bc "$bg-color" -hlbg "$bg-color" -fg "$font-color" -bw 0 -hlfg "#9575cd" -eh 2 -opacity 87 -columns 2
+bindsym Mod1+d exec rofi -show run -width 50 -lines 5 -bc "#d78700" -bw 5 -padding 10 -hlbg "#d78700" -font "Dejavu Sans Mono 14" -hlfg "#000000" -opacity "90" -line-margin 10 -hide-scrollbar -color-window "#fade98"
 bindsym XF86AudioRaiseVolume exec "amixer -D pulse sset Master '5%+'"
 bindsym XF86AudioLowerVolume exec "amixer -D pulse sset Master '5%-'"
 
@@ -191,9 +201,9 @@ bindsym Mod1+q kill
 #bindsym Mod1+d exec --no-startup-id i3-dmenu-desktop
 #
 # split in horizontal orientation
-bindsym Mod1+shift+v split h
+#bindsym Mod1+shift+v split h
 # split in vertical orientation
-bindsym Mod1+v split v
+bindsym Mod1+v split toggle
 
 # enter fullscreen mode for the focused container
 bindsym Mod1+f fullscreen toggle
@@ -240,14 +250,14 @@ assign [class="Thunderbird"]		$ws7
 assign [window_role="cmus"]			$ws3
 assign [class="qBittorrent"]		$ws0
 assign [class="jetbrains-studio"]	$ws6
-assign [class="Evince"]		$ws8
+assign [class="Evince"]				$ws8
 
 
 #Startup applications
 exec gnome-terminal --role=cmus -e cmus
 exec thunderbird
 exec_always feh --bg-scale ~/.config/i3/anime3.png
-#exec_always feh --bg-scale ~/Pictures/fma1.png
+#exec_always feh --bg-scale ~/Pictures/asuna.png
 exec_always compton -f
 exec --no-startup-id nm-applet
 
