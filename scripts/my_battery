@@ -1,0 +1,14 @@
+#!/bin/bash
+
+percent_now=$(echo `acpi`| awk '
+{ 
+	if( NF==6 )
+		printf("DIS %d\n",$(NF-2)); 
+	else if( NF==4 )
+		printf("FULL 100");
+	else
+		printf("CHR %d\n",$(NF-3));
+}')
+
+echo $percent_now%
+#echo $(echo $percent_now|cut -d" " -f2)

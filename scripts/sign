@@ -1,0 +1,4 @@
+#!/bin/bash
+
+tput bold
+echo "ThunderPhoenix"
