@@ -16,6 +16,7 @@ gaps outer 0
 
 smart_gaps on
 
+#kill titlebar
 new_window pixel 4
 
 #|-------------------Focusing on workspaces and windows-------------------|
@@ -94,6 +95,7 @@ mode "RESIZE"
 	bindsym l resize grow width 10px
 
 	bindsym Escape mode "default"
+	bindsym space mode "default"
 	bindsym Return mode "default"
 }
 
@@ -104,7 +106,7 @@ mode "POWERMODE"
 	bindsym l exec pkill -u $USER
 	bindsym s exec shutdown +0
 	bindsym r exec reboot
-	bindsym i exec sh ~/.config/i3/screencast.sh; mode "default"
+	bindsym i exec sh ~/.config/i3/i3lock-color/lock.sh; mode "default"
 
 	bindsym space mode "default"
 	bindsym Escape mode "default"
@@ -125,9 +127,8 @@ bindsym Mod1+c mode "CMUS"
 
 mode "APPLAUNCHER"
 {
-	bindsym t exec thunar;mode "default"
+	bindsym c exec caja; mode "default"
 	bindsym f exec firefox;mode "default"
-	Bindsym c exec chromium-browser;mode "default"
 	bindsym a exec sh /usr/local/android-studio/bin/studio.sh; mode "default"
 
 	bindsym Escape mode "default"
@@ -164,8 +165,8 @@ hide_edge_borders both
 bar {
 	status_command i3blocks -c ~/.config/i3/newbar.conf
 	i3bar_command i3bar -t
-	#font pango:SauceCodePro Nerd Font,awesome 11
 	font xft:Droid Sans Mono, FontAwesome 11
+		#tray_output primary
 		tray_output none
 		position top
 		strip_workspace_numbers yes
@@ -188,6 +189,7 @@ bindsym Mod1+d exec rofi -show run -width 50 -lines 5 -bc "#d78700" -bw 5 -paddi
 bindsym XF86AudioRaiseVolume exec "amixer -D pulse sset Master '5%+'"
 bindsym XF86AudioLowerVolume exec "amixer -D pulse sset Master '5%-'"
 
+bindsym Mod1+t exec "gnome-screenshot"
 bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightness
 
@@ -244,22 +246,24 @@ for_window [class="Firefox"]				focus
 
 
 #assign workspaces to different apps
+assign [window_role="cmus"]			$ws3
 assign [class="Chromium-browser"]	$ws5
 assign [class="Firefox"]			$ws5
-assign [class="Thunderbird"]		$ws7
-assign [window_role="cmus"]			$ws3
-assign [class="qBittorrent"]		$ws0
 assign [class="jetbrains-studio"]	$ws6
+assign [class="Mars"]				$ws6
+assign [class="Gimp"]				$ws6
+assign [class="Thunderbird"]		$ws7
 assign [class="Evince"]				$ws8
+assign [class="qBittorrent"]		$ws0
 
 
 #Startup applications
 exec gnome-terminal --role=cmus -e cmus
 exec thunderbird
-exec_always feh --bg-scale ~/.config/i3/anime3.png
+exec_always feh --bg-scale ~/.config/i3/pics/anime3.png
 #exec_always feh --bg-scale ~/Pictures/asuna.png
+#exec_always feh --bg-scale ~/Pictures/abstract.png
+
 exec_always compton -f
 exec --no-startup-id nm-applet
-
-
 
