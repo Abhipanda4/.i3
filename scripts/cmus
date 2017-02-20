@@ -22,7 +22,7 @@ singer=$(echo $artist|awk '
 label=$( echo $condition|awk '{printf("%s",$2);}')
 if [[ "$label" == "playing" ]]
 then
-	echo " [ $singer- $name ]"
+	echo "  [ $singer- $name ]"
 else
-	echo " [ Paused ]"
+	echo "  [ Paused ]"
 fi
