@@ -137,6 +137,17 @@ mode "APPLAUNCHER"
 
 Bindsym Mod1+a mode "APPLAUNCHER"
 
+mode "PRINTSCREEN"
+{
+	bindsym 1 exec scrot '%X-$wx$h.png' -e 'mv $f ~/Pictures/Screenshots/'
+	bindsym 2 exec scrot -d 5 '%X-$wx$h.png' -e 'mv $f ~/Pictures/Screenshots/'
+	#bindsym 3 exec scrot -s '%X-$wx$h.png' -e 'mv $f ~/Pictures/Screenshots/'
+	bindsym 3 exec scrot -u '%X-$wx$h.png' -e 'mv $f ~/Pictures/Screenshots/'
+
+	bindsym space mode "default"
+	bindsym Escape mode "default"
+}
+bindsym Print mode "PRINTSCREEN"
 
 #|-----------------------Colorschemes :) :) ----------------------|
 #|----------------------------------------------------------------|
@@ -262,8 +273,41 @@ exec gnome-terminal --role=cmus -e cmus
 exec thunderbird
 exec_always feh --bg-scale ~/.config/i3/pics/anime3.png
 #exec_always feh --bg-scale ~/Pictures/asuna.png
-#exec_always feh --bg-scale ~/Pictures/abstract.png
+#exec_always feh --bg-scale ~/Pictures/i3-wallpapers/kakashi.png
 
 exec_always compton -f
 exec --no-startup-id nm-applet
 
+
+mode "gaps_inner" {
+	bindsym plus  gaps inner current plus 5
+		bindsym minus gaps inner current minus 5
+		bindsym 0     mode "default", gaps inner current set 0
+		bindsym d     mode "default", gaps inner current set 8
+
+		bindsym Shift+plus  gaps inner all plus 5
+		bindsym Shift+minus gaps inner all minus 5
+		bindsym Shift+0     mode "default", gaps inner all set 0
+		bindsym Shift+d     mode "default", gaps inner all set 8
+
+		bindsym Return mode "default"
+		bindsym Escape mode "default"
+}
+
+mode "gaps_outer" {
+	bindsym plus  gaps outer current plus 5
+		bindsym minus gaps outer current minus 5
+		bindsym 0     mode "default", gaps outer current set 0
+		bindsym d     mode "default", gaps outer current set 0
+
+		bindsym Shift+plus  gaps outer all plus 5
+		bindsym Shift+minus gaps outer all minus 5
+		bindsym Shift+0     mode "default", gaps outer all set 0
+		bindsym Shift+d     mode "default", gaps outer all set 0
+
+		bindsym Return mode "default"
+		bindsym Escape mode "default"
+}
+bindsym Mod1+i mode "gaps_inner"
+bindsym Mod1+o mode "gaps_outer"
+bindsym Mod1+b exec sh ~/.config/i3/notify.sh
