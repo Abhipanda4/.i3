@@ -181,6 +181,8 @@ bar {
 		tray_output primary
 		#tray_output none
 		bindsym button1 nop
+		bindsym button4 nop
+		bindsym button5 nop
 		position top
 		strip_workspace_numbers yes
 		colors
@@ -266,14 +268,15 @@ assign [class="Mars"]				$ws6
 assign [class="Gimp"]				$ws6
 assign [class="Thunderbird"]		$ws7
 assign [class="qpdfview"]			$ws8
+assign [class="evince"]				$ws8
 assign [class="qBittorrent"]		$ws0
 
 
 #Startup applications
-#exec firefox
-#exec chromium-browser
+exec firefox
+exec chromium-browser
 exec gnome-terminal --role=cmus -e cmus
-#exec thunderbird
+exec thunderbird
 
 
 #exec_always feh --bg-scale ~/.config/i3/pics/anime3.png

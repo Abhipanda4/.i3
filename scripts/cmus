@@ -6,6 +6,7 @@ condition=$(cmus-remote -Q|grep -w status)
 #echo $artist
 #echo $song
 #echo $condition
+
 name=$(echo $song|awk '
 {
 	for(i=3; i<=NF; i++)
@@ -16,13 +17,10 @@ singer=$(echo $artist|awk '
 	for(i=3; i<=NF; i++)
 		printf("%s ",$i);
 }')
-#bold=$(tput bold)
-#normal=$(tput sgr0)
-#tput bold
 label=$( echo $condition|awk '{printf("%s",$2);}')
 if [[ "$label" == "playing" ]]
 then
-	echo "  [ $singer- $name ]"
+	echo "   [ $singer- $name] "
 else
-	echo "  [ Paused ]"
+	echo "   [ Paused ] "
 fi
