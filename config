@@ -62,7 +62,7 @@ bindsym Mod1+4 workspace $ws4
 bindsym Mod1+5 workspace $ws5
 bindsym Mod1+6 workspace $ws6
 bindsym Mod1+7 workspace $ws7
-bindsym Mod1+8 workspace $ws8
+bindsym Mod1+8 workspace $ws8; layout tabbed
 bindsym Mod1+9 workspace $ws9
 bindsym Mod1+0 workspace $ws0
 
@@ -203,9 +203,10 @@ bindsym Mod1+d exec rofi -show run -width 50 -lines 5 -bc "#d78700" -bw 5 -paddi
 bindsym XF86AudioRaiseVolume exec "amixer -D pulse sset Master '5%+'"
 bindsym XF86AudioLowerVolume exec "amixer -D pulse sset Master '5%-'"
 
-bindsym Mod1+t exec "gnome-screenshot"
+#bindsym Mod1+t exec "gnome-screenshot"
 bindsym XF86MonBrightnessUp exec xbacklight -inc 5 # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen brightness
+bindsym Mod1+t exec notify-send 'wow'
 
 
 # start a terminal
@@ -230,7 +231,6 @@ bindsym Mod1+s layout stacking
 bindsym Mod1+w layout tabbed
 bindsym Mod1+e layout toggle split
 
-# toggle tiling / floating
 bindsym Mod1+Shift+space floating toggle
 # change focus between tiling / floating windows
 bindsym Mod1+space focus mode_toggle
@@ -268,7 +268,7 @@ assign [class="Mars"]				$ws6
 assign [class="Gimp"]				$ws6
 assign [class="Thunderbird"]		$ws7
 assign [class="qpdfview"]			$ws8
-assign [class="evince"]				$ws8
+assign [class="Evince"]				$ws8
 assign [class="qBittorrent"]		$ws0
 
 
@@ -318,6 +318,3 @@ mode "gaps_outer" {
 }
 bindsym Mod1+i mode "gaps_inner"
 bindsym Mod1+o mode "gaps_outer"
-
-#testing lemonbar
-#bindsym Mod1+b exec ~/.config/i3/bar/bar_feeder.sh | lemonbar -p
