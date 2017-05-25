@@ -129,7 +129,7 @@ mode "APPLAUNCHER"
 {
 	bindsym c exec caja; mode "default"
 	bindsym f exec firefox;mode "default"
-	bindsym a exec sh /usr/local/android-studio/bin/studio.sh; mode "default"
+	bindsym a exec ./arduino-1.8.2/arduino; mode "default"
 
 	bindsym Escape mode "default"
 	bindsym space mode "default"
@@ -160,7 +160,7 @@ set $text-color			#f3f4f5
 set $inactive-text-color	#878E8D
 set $urgent-bg-color		#2f343f
 set $urgent-bar-color		#ffaf00
-set $border #027372
+set $border #d78700
 
 #window colors table
 #window						border					background				text					indicator
@@ -169,15 +169,15 @@ client.unfocused			$inactive-bg-color		$inactive-bg-color		$inactive-text-color	
 client.focused_inactive		$inactive-bg-color		$inactive-bg-color		$inactive-text-color	$border
 client.urgent				$urgent-bg-color		$urgent-bg-color		$text-color				$border
 
-hide_edge_borders both
+hide_edge_borders smart
 
 #configuration for statusbar
 bar {
 	status_command i3blocks -c ~/.config/i3/newbar.conf
 	i3bar_command i3bar -t
 	font xft:hack, FontAwesome 11
-		height 26
-		tray_padding 0
+		height 28
+		tray_padding 8
 		tray_output primary
 		#tray_output none
 		bindsym button1 nop
@@ -187,7 +187,7 @@ bar {
 		strip_workspace_numbers yes
 		colors
 		{
-			background #2a2c2cc9
+			background #000000
 				#type					border					background				text
 				inactive_workspace		#FADE9B					#FADE9B					#000000
 				focused_workspace		$bg-color				$bg-color				#000000
