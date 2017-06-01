@@ -17,7 +17,7 @@ gaps outer 0
 smart_gaps on
 
 #kill titlebar
-new_window pixel 4
+new_window pixel 6
 
 #|-------------------Focusing on workspaces and windows-------------------|
 #-------------------------------------------------------------------------|
@@ -154,8 +154,8 @@ bindsym Print mode "PRINTSCREEN"
 
 #declare variables for window colors
 set $bg-color			#d78700
-set $bar-color			#000000
-set $inactive-bg-color	#2f343f
+set $bar-color			#222222
+set $inactive-bg-color	#000000
 set $text-color			#f3f4f5
 set $inactive-text-color	#878E8D
 set $urgent-bg-color		#2f343f
