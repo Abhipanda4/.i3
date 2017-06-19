@@ -11,13 +11,13 @@ set $right l
 focus_follows_mouse no
 
 #for_window [class="^.*"] border pixel 0
-gaps inner 8
+gaps inner 15
 gaps outer 0
 
 smart_gaps on
 
 #kill titlebar
-new_window pixel 6
+new_window pixel 4
 
 #|-------------------Focusing on workspaces and windows-------------------|
 #-------------------------------------------------------------------------|
@@ -49,7 +49,7 @@ set $ws3 "3: "
 set $ws4 "4:  "
 set $ws5 "5:  "
 set $ws6 "6: "
-set $ws7 "7:  "
+set $ws7 "7:"
 set $ws8 "8:"
 set $ws9 "9:  "
 set $ws0 "10:"
@@ -106,8 +106,7 @@ mode "POWERMODE"
 	bindsym l exec pkill -u $USER
 	bindsym s exec shutdown +0
 	bindsym r exec reboot
-	bindsym i exec sh ~/.config/i3/i3lock-color/lock.sh; mode "default"
-
+	bindsym i mode "default"; exec /home/abhipanda/.config/i3/i3lock-color/lock.sh
 	bindsym space mode "default"
 	bindsym Escape mode "default"
 }
@@ -141,7 +140,6 @@ mode "PRINTSCREEN"
 {
 	bindsym 1 exec scrot '%X-$wx$h.png' -e 'mv $f ~/Pictures/Screenshots/'
 	bindsym 2 exec scrot -d 5 '%X-$wx$h.png' -e 'mv $f ~/Pictures/Screenshots/'
-	#bindsym 3 exec scrot -s '%X-$wx$h.png' -e 'mv $f ~/Pictures/Screenshots/'
 	bindsym 3 exec scrot -u '%X-$wx$h.png' -e 'mv $f ~/Pictures/Screenshots/'
 
 	bindsym space mode "default"
@@ -153,18 +151,18 @@ bindsym Print mode "PRINTSCREEN"
 #|----------------------------------------------------------------|
 
 #declare variables for window colors
-set $bg-color			#d78700
-set $bar-color			#222222
-set $inactive-bg-color	#000000
-set $text-color			#f3f4f5
-set $inactive-text-color	#878E8D
-set $urgent-bg-color		#2f343f
-set $urgent-bar-color		#ffaf00
-set $border #d78700
+set $bg-color            #af8700
+set $bar-color           #222222
+set $inactive-bg-color   #000000
+set $text-color          #f3f4f5
+set $inactive-text-color #878E8D
+set $urgent-bg-color     #2f343f
+set $urgent-bar-color    #ffaf00
+set $border              #000000
 
 #window colors table
 #window						border					background				text					indicator
-client.focused				$inactive-bg-color		$bg-color				$text-color				$border
+client.focused				$inactive-bg-color		#222222					$text-color				$border
 client.unfocused			$inactive-bg-color		$inactive-bg-color		$inactive-text-color	$border
 client.focused_inactive		$inactive-bg-color		$inactive-bg-color		$inactive-text-color	$border
 client.urgent				$urgent-bg-color		$urgent-bg-color		$text-color				$border
@@ -176,10 +174,9 @@ bar {
 	status_command i3blocks -c ~/.config/i3/newbar.conf
 	i3bar_command i3bar -t
 	font xft:hack, FontAwesome 11
-		height 28
-		tray_padding 8
+		height 24
+		tray_padding 5
 		tray_output primary
-		#tray_output none
 		bindsym button1 nop
 		bindsym button4 nop
 		bindsym button5 nop
@@ -206,7 +203,6 @@ bindsym XF86AudioLowerVolume exec "amixer -D pulse sset Master '5%-'"
 #bindsym Mod1+t exec "gnome-screenshot"
 bindsym XF86MonBrightnessUp exec xbacklight -inc 5 # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen brightness
-bindsym Mod1+t exec notify-send 'wow'
 
 
 # start a terminal
@@ -255,7 +251,6 @@ bindsym Mod1+minus scratchpad show
 #  - window_role	:window role     = WM_WINDOW_ROLE
 
 #Focus and float settings
-#for_window [class="Chromium-browser"]		focus
 for_window [class="Firefox"]				focus
 
 
@@ -279,9 +274,7 @@ exec gnome-terminal --role=cmus -e cmus
 exec thunderbird
 
 
-#exec_always feh --bg-scale ~/.config/i3/pics/anime3.png
-#exec_always feh --bg-scale ~/.config/i3/pics/nc1.png
-exec_always feh --bg-scale ~/.config/i3/pics/citygirl.png
+exec_always feh --bg-scale ~/Pictures/hiyori_min.png
 
 exec_always compton -f
 exec --no-startup-id nm-applet
