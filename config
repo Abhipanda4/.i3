@@ -17,7 +17,7 @@ gaps outer 0
 smart_gaps on
 
 #kill titlebar
-new_window pixel 4
+new_window pixel 5
 
 #|-------------------Focusing on workspaces and windows-------------------|
 #-------------------------------------------------------------------------|
@@ -43,16 +43,16 @@ bindsym Mod1+Shift+Right move right
 #|----------------Workspace Settings-----------------------|
 #|---------------------------------------------------------|
 
-set $ws1 "1:  "
-set $ws2 "2:  "
-set $ws3 "3: "
-set $ws4 "4:  "
-set $ws5 "5:  "
-set $ws6 "6: "
-set $ws7 "7:"
-set $ws8 "8:"
-set $ws9 "9:  "
-set $ws0 "10:"
+set $ws1 "1:    "
+set $ws2 "2:    "
+set $ws3 "3:   "
+set $ws4 "4:    "
+set $ws5 "5:    "
+set $ws6 "6:   "
+set $ws7 "7:   "
+set $ws8 "8:   "
+set $ws9 "9:    "
+set $ws0 "10:   "
 
 # switch to workspace
 bindsym Mod1+1 workspace $ws1
@@ -107,7 +107,7 @@ mode "POWERMODE"
 	bindsym s exec shutdown +0
 	bindsym r exec reboot
 	bindsym i mode "default"; exec /home/abhipanda/.config/i3/i3lock-color/lock.sh
-	bindsym space mode "default"
+	#bindsym space mode "default"
 	bindsym Escape mode "default"
 }
 
@@ -151,56 +151,61 @@ bindsym Print mode "PRINTSCREEN"
 #|----------------------------------------------------------------|
 
 #declare variables for window colors
-set $bg-color            #af8700
-set $bar-color           #222222
-set $inactive-bg-color   #000000
-set $text-color          #f3f4f5
+set $bg-color            #B33A3A
+set $bar-color           #af0000
+set $text-color          #c2c2c2
 set $inactive-text-color #878E8D
 set $urgent-bg-color     #2f343f
-set $urgent-bar-color    #ffaf00
-set $border              #000000
+set $urgent-bar-color    #af8700
+set $red                 #7e1e27
+
+set $active-bg-color     #111111
+set $inactive-bg-color   #222222
+set $border              #111111
+set $inactive-border     #222222
+
+set $bind				 #3c94c6
+set $foc-border			 #ffaaaa
 
 #window colors table
-#window						border					background				text					indicator
-client.focused				$inactive-bg-color		#222222					$text-color				$border
-client.unfocused			$inactive-bg-color		$inactive-bg-color		$inactive-text-color	$border
-client.focused_inactive		$inactive-bg-color		$inactive-bg-color		$inactive-text-color	$border
-client.urgent				$urgent-bg-color		$urgent-bg-color		$text-color				$border
+#window						header-border			header-background		header-text				indicator		border-color
+client.focused				$border					$active-bg-color		$text-color				$border			
+client.unfocused			$inactive-border		$inactive-bg-color		$inactive-text-color	$border
+client.focused_inactive		$border					$inactive-bg-color		$inactive-text-color	$border
+client.urgent				$urgent-bg-color		$urgent-bg-color		$red					$border
 
 hide_edge_borders smart
 
 #configuration for statusbar
 bar {
-	status_command i3blocks -c ~/.config/i3/newbar.conf
+	status_command i3blocks -c ~/.config/i3/i3blocks.conf
 	i3bar_command i3bar -t
-	font xft:hack, FontAwesome 11
-		height 24
-		tray_padding 5
+	font pango: Source Code Pro, FontAwesome 9
+		height 18
 		tray_output primary
-		bindsym button1 nop
-		bindsym button4 nop
-		bindsym button5 nop
+		#bindsym button1 nop
+		#bindsym button4 nop
+		#bindsym button5 nop
 		position top
 		strip_workspace_numbers yes
 		colors
 		{
 			background #000000
 				#type					border					background				text
-				inactive_workspace		#FADE9B					#FADE9B					#000000
-				focused_workspace		$bg-color				$bg-color				#000000
-				urgent_workspace		$urgent-bar-color		$bar-color				$urgent-bar-color
-				binding_mode			$bg-color				$bg-color				#000000
+				inactive_workspace		$border					$border					$text-color
+				focused_workspace		$border					$bg-color				#ffffff
+				urgent_workspace		$border					$border					$red
+				binding_mode			$border					$bind					$border
 		}
 }
 
 #|-----------------Bindsyms--------------------|
 #|---------------------------------------------|
 
-bindsym Mod1+d exec rofi -show run -width 50 -lines 5 -bc "#d78700" -bw 5 -padding 10 -hlbg "#d78700" -font "Dejavu Sans Mono 14" -hlfg "#000000" -opacity "90" -line-margin 10 -hide-scrollbar -color-window "#fade98"
+bindsym Mod1+d exec rofi -show run -width 50 -lines 5 -bc "#b33a3a" -bw 5 -padding 10 -hlbg "#b33a3a" -font "Dejavu Sans Mono 14" -hlfg "#000000" -opacity "90" -line-margin 10 -hide-scrollbar -color-window "#fade98"
 bindsym XF86AudioRaiseVolume exec "amixer -D pulse sset Master '5%+'"
 bindsym XF86AudioLowerVolume exec "amixer -D pulse sset Master '5%-'"
 
-#bindsym Mod1+t exec "gnome-screenshot"
 bindsym XF86MonBrightnessUp exec xbacklight -inc 5 # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen brightness
 
@@ -210,12 +215,8 @@ bindsym Mod1+Return exec i3-sensible-terminal
 
 # kill focused window
 bindsym Mod1+q kill
-#bindsym Mod1+d exec dmenu_run
-#bindsym Mod1+d exec --no-startup-id i3-dmenu-desktop
-#
-# split in horizontal orientation
-#bindsym Mod1+shift+v split h
-# split in vertical orientation
+
+# horizontal and vertical split
 bindsym Mod1+v split toggle
 
 # enter fullscreen mode for the focused container
@@ -255,7 +256,7 @@ for_window [class="Firefox"]				focus
 
 
 #assign workspaces to different apps
-assign [window_role="cmus"]			$ws3
+assign [window_role="cmus"]			$ws4
 assign [class="Chromium-browser"]	$ws9
 assign [class="Firefox"]			$ws5
 assign [class="jetbrains-studio"]	$ws6
