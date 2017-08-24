@@ -1,19 +1,22 @@
 #!/bin/bash
+# script for fancy i3lock in multi-monitor system
+# Check guimeira/i3lock-fancy-multimonitor for a generalized version
+
 ROUTE=~/.config/i3/pics
-LOCK_IMG=$ROUTE/aqua_clear.png
+LOCK_IMG=$ROUTE/lock_icon.png
+details=`identify $LOCK_IMG`
+SIZE_REG="([0-9]+)x([0-9]+)"
+
+# Get the dimensions of the lock icon
+[[ $details =~ $SIZE_REG ]]
+IMG_WIDTH=${BASH_REMATCH[1]}
+IMG_HEIGHT=${BASH_REMATCH[2]}
+
+# Blurred Image of current screen for background
 scrot 'fori3lock.png' -e 'mv $f ~/.config/i3/pics/fori3lock.png'
-convert -blur 0x7 $ROUTE/fori3lock.png $ROUTE/blurred_shot.png
+convert -blur 5x3 $ROUTE/fori3lock.png $ROUTE/blurred_shot.png
 
-IMG_WIDTH=807
-IMG_HEIGHT=1079
 DISPLAY_REG="([0-9]+)x([0-9]+)\\+([0-9]+)\\+([0-9]+)"
-
-# blurred_shot.png is 3840 * 1080 image
-# instead of executing commands; note the dimensions of your setup
-# using xrandr. This will make the script faster
-
-t_width=3840
-t_height=1080
 
 while read LINE
 do
