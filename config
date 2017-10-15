@@ -17,7 +17,7 @@ gaps outer 0
 smart_gaps on
 
 #kill titlebar
-new_window pixel 5
+new_window pixel 2
 
 #|-------------------Focusing on workspaces and windows-------------------|
 #-------------------------------------------------------------------------|
@@ -43,7 +43,7 @@ bindsym Mod1+Shift+Right move right
 #|----------------Workspace Settings-----------------------|
 #|---------------------------------------------------------|
 
-set $ws1 "1:    "
+set $ws1 "1:   "
 set $ws2 "2:    "
 set $ws3 "3:   "
 set $ws4 "4:    "
@@ -53,6 +53,18 @@ set $ws7 "7:   "
 set $ws8 "8:   "
 set $ws9 "9:    "
 set $ws0 "10:   "
+
+# divide the workspace between 2 monitors
+workspace $ws1 output eDP-1-1
+workspace $ws2 output HDMI-1-1
+workspace $ws3 output eDP-1-1
+workspace $ws4 output eDP-1-1
+workspace $ws5 output HDMI-1-1
+workspace $ws6 output HDMI-1-1
+workspace $ws7 output eDP-1-1
+workspace $ws8 output HDMI-1-1
+workspace $ws9 output HDMI-1-1
+workspace $ws0 output eDP-1-1
 
 # switch to workspace
 bindsym Mod1+1 workspace $ws1
@@ -65,6 +77,7 @@ bindsym Mod1+7 workspace $ws7
 bindsym Mod1+8 workspace $ws8; layout tabbed
 bindsym Mod1+9 workspace $ws9
 bindsym Mod1+0 workspace $ws0
+
 
 # move focused container to workspace
 bindsym Mod1+Shift+1 move container to workspace $ws1
@@ -79,6 +92,9 @@ bindsym Mod1+Shift+9 move container to workspace $ws9
 bindsym Mod1+Shift+0 move container to workspace $ws0
 
 bindsym Mod1 +Tab workspace back_and_forth
+
+Bindsym Mod1+Shift+w move workspace to output left
+Bindsym Mod1+Shift+e move workspace to output right
 
 #-----------------------Custom modes-----------------------------|
 #----------------------------------------------------------------|
@@ -106,8 +122,8 @@ mode "POWERMODE"
 	bindsym l exec pkill -u $USER
 	bindsym s exec shutdown +0
 	bindsym r exec reboot
-	bindsym i mode "default"; exec /home/abhipanda/.config/i3/i3lock-color/lock.sh
-	#bindsym space mode "default"
+	bindsym i mode "default"; exec /home/abhipanda/.config/i3/scripts/i3locker.sh
+	#bindsym i mode "default"; ./scripts/i3locker.sh
 	bindsym Escape mode "default"
 }
 
@@ -151,7 +167,7 @@ bindsym Print mode "PRINTSCREEN"
 #|----------------------------------------------------------------|
 
 #declare variables for window colors
-set $bg-color            #B33A3A
+set $bg-color            #cb4c4c
 set $bar-color           #af0000
 set $text-color          #c2c2c2
 set $inactive-text-color #878E8D
@@ -169,7 +185,7 @@ set $foc-border			 #ffaaaa
 
 #window colors table
 #window						header-border			header-background		header-text				indicator		border-color
-client.focused				$border					$active-bg-color		$text-color				$border			
+client.focused				$border					$active-bg-color		$text-color				$border			#999999
 client.unfocused			$inactive-border		$inactive-bg-color		$inactive-text-color	$border
 client.focused_inactive		$border					$inactive-bg-color		$inactive-text-color	$border
 client.urgent				$urgent-bg-color		$urgent-bg-color		$red					$border
@@ -183,9 +199,9 @@ bar {
 	font pango: Source Code Pro, FontAwesome 9
 		height 18
 		tray_output primary
-		#bindsym button1 nop
-		#bindsym button4 nop
-		#bindsym button5 nop
+		bindsym button1 nop
+		bindsym button4 nop
+		bindsym button5 nop
 		position top
 		strip_workspace_numbers yes
 		colors
@@ -193,7 +209,7 @@ bar {
 			background #000000
 				#type					border					background				text
 				inactive_workspace		$border					$border					$text-color
-				focused_workspace		$border					$bg-color				#ffffff
+				focused_workspace		$border					$bg-color				#000000
 				urgent_workspace		$border					$border					$red
 				binding_mode			$border					$bind					$border
 		}
@@ -279,6 +295,8 @@ exec_always feh --bg-scale ~/Pictures/hiyori_min.png
 
 exec_always compton -f
 exec --no-startup-id nm-applet
+exec --no-startup-id blueman-applet
+exec --no-startup-id indicator-cpufreq
 
 
 mode "gaps_inner" {
