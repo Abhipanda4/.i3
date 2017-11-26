@@ -1,4 +1,4 @@
-font pango:DejaVu Sans Mono 11
+font pango:DejaVu Sans Mono 12
 
 # arrows are not convenient
 set $up k
@@ -17,7 +17,8 @@ gaps outer 0
 smart_gaps on
 
 #kill titlebar
-new_window pixel 2
+new_window pixel 3
+hide_edge_borders smart
 
 #|-------------------Focusing on workspaces and windows-------------------|
 #-------------------------------------------------------------------------|
@@ -45,7 +46,7 @@ bindsym Mod1+Shift+Right move right
 
 set $ws1 "1:   "
 set $ws2 "2:    "
-set $ws3 "3:   "
+set $ws3 "3:   "
 set $ws4 "4:    "
 set $ws5 "5:    "
 set $ws6 "6:   "
@@ -167,7 +168,7 @@ bindsym Print mode "PRINTSCREEN"
 #|----------------------------------------------------------------|
 
 #declare variables for window colors
-set $bg-color            #cb4c4c
+set $bg-color            #CB4C4C
 set $bar-color           #af0000
 set $text-color          #c2c2c2
 set $inactive-text-color #878E8D
@@ -180,17 +181,18 @@ set $inactive-bg-color   #222222
 set $border              #111111
 set $inactive-border     #222222
 
-set $bind				 #3c94c6
+set $bind				 #3399ff
 set $foc-border			 #ffaaaa
+set $black				 #000000
+set $white				 #ffffff
 
 #window colors table
 #window						header-border			header-background		header-text				indicator		border-color
-client.focused				$border					$active-bg-color		$text-color				$border			#999999
+client.focused				$black					$black					$white					$border			#ababab
 client.unfocused			$inactive-border		$inactive-bg-color		$inactive-text-color	$border
 client.focused_inactive		$border					$inactive-bg-color		$inactive-text-color	$border
 client.urgent				$urgent-bg-color		$urgent-bg-color		$red					$border
 
-hide_edge_borders smart
 
 #configuration for statusbar
 bar {
@@ -227,7 +229,7 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen brightnes
 
 
 # start a terminal
-bindsym Mod1+Return exec i3-sensible-terminal
+bindsym Mod1+Return exec termite
 
 # kill focused window
 bindsym Mod1+q kill
@@ -272,31 +274,32 @@ for_window [class="Firefox"]				focus
 
 
 #assign workspaces to different apps
-assign [window_role="cmus"]			$ws4
+#assign [window_role="cmus"]			$ws4
 assign [class="Chromium-browser"]	$ws9
 assign [class="Firefox"]			$ws5
-assign [class="jetbrains-studio"]	$ws6
-assign [class="Mars"]				$ws6
 assign [class="Gimp"]				$ws6
 assign [class="Thunderbird"]		$ws7
-assign [class="qpdfview"]			$ws8
 assign [class="Evince"]				$ws8
 assign [class="qBittorrent"]		$ws0
+assign [class="Caja"]				$ws3
 
 
 #Startup applications
 exec firefox
 exec chromium-browser
-exec gnome-terminal --role=cmus -e cmus
+#exec gnome-terminal --role=cmus -e cmus
 exec thunderbird
+exec caja
 
 
-exec_always feh --bg-scale ~/Pictures/hiyori_min.png
+#exec_always feh --bg-scale ~/Pictures/hiyori_min.png
+exec_always feh --bg-scale ~/canvas.png
 
-exec_always compton -f
+exec_always --no-startup-id killall dunst; dunst
+
+#exec_always compton -f
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
-exec --no-startup-id indicator-cpufreq
 
 
 mode "gaps_inner" {
