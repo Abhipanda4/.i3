@@ -1,11 +1,8 @@
 #!/bin/bash
 
-artist=$(cmus-remote -Q|grep -w artist)
+artist=$(cmus-remote -Q|grep "tag artist")
 song=$(cmus-remote -Q|grep -w title)
 condition=$(cmus-remote -Q|grep -w status)
-#echo $artist
-#echo $song
-#echo $condition
 
 name=$(echo $song|awk '
 {
@@ -20,7 +17,7 @@ singer=$(echo $artist|awk '
 label=$( echo $condition|awk '{printf("%s",$2);}')
 if [[ "$label" == "playing" ]]
 then
-	echo "   [ $singer- $name] "
+	echo "   [ $singer- $name] "
 else
-	echo "   [ Paused ] "
+	echo "   [ Paused ] "
 fi
