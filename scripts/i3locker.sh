@@ -3,6 +3,7 @@
 # Check guimeira/i3lock-fancy-multimonitor for a generalized version
 
 ROUTE=~/.config/i3/pics
+declare -a LOCK_IMG
 LOCK_IMG=$ROUTE/lock_icon.png
 details=`identify $LOCK_IMG`
 SIZE_REG="([0-9]+)x([0-9]+)"
@@ -39,7 +40,6 @@ do
 
 done <<< "`xrandr | grep mm`"
 
-#convert $ROUTE/blurred.png $full_image -gravity center -composite $ROUTE/display.png
 ARGS="'$ROUTE/blurred_shot.png' $ARGS '$ROUTE/final_img.png'"
 eval convert $ARGS
 
