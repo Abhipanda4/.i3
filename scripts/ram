@@ -1,3 +1,4 @@
 #!/bin/bash
 
-free -h|grep Mem|awk '{print $NF " "}'
+ram=$(free -h|grep Mem|awk '{print $NF " "}')
+echo $ram
