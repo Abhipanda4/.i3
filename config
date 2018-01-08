@@ -1,12 +1,11 @@
-font pango:DejaVu Sans Mono 12
-
+set $mod Mod1
+font xft:Noto Sans 10, Awesome 10
 # arrows are not convenient
 set $up k
 set $down j
 set $left h
 set $right l
 
-# use Mouse+Mod1 to drag floating windows to their wanted position
 #floating_modifier Mod1
 focus_follows_mouse no
 
@@ -44,28 +43,27 @@ bindsym Mod1+Shift+Right move right
 #|----------------Workspace Settings-----------------------|
 #|---------------------------------------------------------|
 
-set $ws1 "1:   "
-set $ws2 "2:    "
-set $ws3 "3:   "
-set $ws4 "4:    "
-set $ws5 "5:    "
-set $ws6 "6:   "
-set $ws7 "7:   "
-set $ws8 "8:   "
-set $ws9 "9:    "
-set $ws0 "10:   "
+set $ws1 "1:"
+set $ws2 "2:"
+set $ws3 "3:"
+set $ws4 "4:"
+set $ws5 "5:"
+set $ws6 "6:"
+set $ws7 "7:"
+set $ws8 "8:"
+set $ws9 "9:"
+set $ws0 "10:"
 
 # divide the workspace between 2 monitors
-workspace $ws1 output eDP-1-1
-workspace $ws2 output HDMI-1-1
-workspace $ws3 output eDP-1-1
-workspace $ws4 output eDP-1-1
-workspace $ws5 output HDMI-1-1
-workspace $ws6 output HDMI-1-1
-workspace $ws7 output eDP-1-1
-workspace $ws8 output HDMI-1-1
-workspace $ws9 output HDMI-1-1
-workspace $ws0 output eDP-1-1
+workspace $ws1 output eDP1
+workspace $ws2 output HDMI1
+workspace $ws3 output eDP1
+workspace $ws4 output eDP-1
+workspace $ws5 output HDMI1
+workspace $ws6 output HDMI1
+workspace $ws7 output eDP1
+workspace $ws9 output HDMI1
+workspace $ws0 output eDP1
 
 # switch to workspace
 bindsym Mod1+1 workspace $ws1
@@ -92,7 +90,7 @@ bindsym Mod1+Shift+8 move container to workspace $ws8
 bindsym Mod1+Shift+9 move container to workspace $ws9
 bindsym Mod1+Shift+0 move container to workspace $ws0
 
-bindsym Mod1 +Tab workspace back_and_forth
+bindsym Mod1+Tab workspace back_and_forth
 
 Bindsym Mod1+Shift+w move workspace to output left
 Bindsym Mod1+Shift+e move workspace to output right
@@ -123,110 +121,25 @@ mode "POWERMODE"
 	bindsym l exec pkill -u $USER
 	bindsym s exec shutdown +0
 	bindsym r exec reboot
-	bindsym i mode "default"; exec /home/abhipanda/.config/i3/scripts/i3locker.sh
+	bindsym i mode "default"; exec blurlock
 	#bindsym i mode "default"; ./scripts/i3locker.sh
 	bindsym Escape mode "default"
 }
 
 bindsym Mod1+p mode "POWERMODE"
 
-mode "CMUS"
-{
-	bindsym c exec cmus-remote -u
-	bindsym z exec cmus-remote -r
-	bindsym b exec cmus-remote -n
-
-	bindsym Escape mode "default"
-	bindsym space mode "default"
-}
-bindsym Mod1+c mode "CMUS"
-
 mode "APPLAUNCHER"
 {
-	bindsym c exec caja; mode "default"
+	bindsym c exec pcmanfm; mode "default"
 	bindsym f exec firefox;mode "default"
-	bindsym a exec ./arduino-1.8.2/arduino; mode "default"
-
 	bindsym Escape mode "default"
 	bindsym space mode "default"
 }
 
 Bindsym Mod1+a mode "APPLAUNCHER"
-
-mode "PRINTSCREEN"
-{
-	bindsym 1 exec scrot '%X-$wx$h.png' -e 'mv $f ~/Pictures/Screenshots/'
-	bindsym 2 exec scrot -d 5 '%X-$wx$h.png' -e 'mv $f ~/Pictures/Screenshots/'
-	bindsym 3 exec scrot -u '%X-$wx$h.png' -e 'mv $f ~/Pictures/Screenshots/'
-
-	bindsym space mode "default"
-	bindsym Escape mode "default"
-}
-bindsym Print mode "PRINTSCREEN"
-
-#|-----------------------Colorschemes :) :) ----------------------|
-#|----------------------------------------------------------------|
-
-#declare variables for window colors
-set $bg-color            #CB4C4C
-set $bar-color           #af0000
-set $text-color          #c2c2c2
-set $inactive-text-color #878E8D
-set $urgent-bg-color     #2f343f
-set $urgent-bar-color    #af8700
-set $red                 #7e1e27
-
-set $active-bg-color     #111111
-set $inactive-bg-color   #222222
-set $border              #111111
-set $inactive-border     #222222
-
-set $bind				 #3399ff
-set $foc-border			 #ffaaaa
-set $black				 #000000
-set $white				 #ffffff
-
-#window colors table
-#window						header-border			header-background		header-text				indicator		border-color
-client.focused				$black					$black					$white					$border			#ababab
-client.unfocused			$inactive-border		$inactive-bg-color		$inactive-text-color	$border
-client.focused_inactive		$border					$inactive-bg-color		$inactive-text-color	$border
-client.urgent				$urgent-bg-color		$urgent-bg-color		$red					$border
-
-
-#configuration for statusbar
-bar {
-	status_command i3blocks -c ~/.config/i3/i3blocks.conf
-	i3bar_command i3bar -t
-	font pango: Source Code Pro, FontAwesome 9
-		height 18
-		tray_output primary
-		bindsym button1 nop
-		bindsym button4 nop
-		bindsym button5 nop
-		position top
-		strip_workspace_numbers yes
-		colors
-		{
-			background #000000
-				#type					border					background				text
-				inactive_workspace		$border					$border					$text-color
-				focused_workspace		$border					$bg-color				#000000
-				urgent_workspace		$border					$border					$red
-				binding_mode			$border					$bind					$border
-		}
-}
-
-#|-----------------Bindsyms--------------------|
-#|---------------------------------------------|
-
-bindsym Mod1+d exec rofi -show run -width 50 -lines 5 -bc "#b33a3a" -bw 5 -padding 10 -hlbg "#b33a3a" -font "Dejavu Sans Mono 14" -hlfg "#000000" -opacity "90" -line-margin 10 -hide-scrollbar -color-window "#fade98"
+bindsym Mod1+d exec rofi -show run
 bindsym XF86AudioRaiseVolume exec "amixer -D pulse sset Master '5%+'"
 bindsym XF86AudioLowerVolume exec "amixer -D pulse sset Master '5%-'"
-
-bindsym XF86MonBrightnessUp exec xbacklight -inc 5 # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen brightness
-
 
 # start a terminal
 bindsym Mod1+Return exec termite
@@ -241,7 +154,6 @@ bindsym Mod1+v split toggle
 bindsym Mod1+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-# TODO:make this into a mode
 bindsym Mod1+s layout stacking
 bindsym Mod1+w layout tabbed
 bindsym Mod1+e layout toggle split
@@ -249,11 +161,6 @@ bindsym Mod1+e layout toggle split
 bindsym Mod1+Shift+space floating toggle
 # change focus between tiling / floating windows
 bindsym Mod1+space focus mode_toggle
-
-# focus the parent container
-#bindsym Mod1+a focus parent
-# focus the child container
-#bindsym Mod1+d focus child
 
 # move the currently focused window to the scratchpad
 bindsym Mod1+Shift+minus move scratchpad
@@ -270,36 +177,29 @@ bindsym Mod1+minus scratchpad show
 #  - window_role	:window role     = WM_WINDOW_ROLE
 
 #Focus and float settings
-for_window [class="Firefox"]				focus
+for_window [class="Firefox"]        focus
 
 
 #assign workspaces to different apps
-#assign [window_role="cmus"]			$ws4
 assign [class="Chromium-browser"]	$ws9
 assign [class="Firefox"]			$ws5
 assign [class="Gimp"]				$ws6
 assign [class="Thunderbird"]		$ws7
 assign [class="Evince"]				$ws8
 assign [class="qBittorrent"]		$ws0
-assign [class="Caja"]				$ws3
 
 
 #Startup applications
 exec firefox
 exec chromium-browser
-#exec gnome-terminal --role=cmus -e cmus
 exec thunderbird
-exec caja
+exec pcmanfm
 
-
-#exec_always feh --bg-scale ~/Pictures/hiyori_min.png
-exec_always feh --bg-scale ~/canvas.png
-
-exec_always --no-startup-id killall dunst; dunst
 
 #exec_always compton -f
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
+exec --no-startup-id pulseaudio
 
 
 mode "gaps_inner" {
@@ -333,3 +233,149 @@ mode "gaps_outer" {
 }
 bindsym Mod1+i mode "gaps_inner"
 bindsym Mod1+o mode "gaps_outer"
+
+# Screen brightness controls
+bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'brightness up'"
+bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness down'"
+
+bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
+bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
+
+# Open specific applications in floating mode
+for_window [title="alsamixer"] floating enable border pixel 1
+for_window [class="Calamares"] floating enable border normal
+for_window [class="Clipgrab"] floating enable
+for_window [title="File Transfer*"] floating enable
+for_window [class="Galculator"] floating enable border pixel 1
+for_window [class="GParted"] floating enable border normal
+for_window [title="i3_help"] floating enable sticky enable border normal
+for_window [class="Lightdm-gtk-greeter-settings"] floating enable
+for_window [class="Lxappearance"] floating enable sticky enable border normal
+for_window [class="Manjaro-hello"] floating enable
+for_window [class="Manjaro Settings Manager"] floating enable border normal
+for_window [title="MuseScore: Play Panel"] floating enable
+for_window [class="Nitrogen"] floating enable sticky enable border normal
+for_window [class="Oblogout"] fullscreen enable
+for_window [class="octopi"] floating enable
+for_window [title="About Pale Moon"] floating enable
+for_window [class="Pamac-manager"] floating enable
+for_window [class="Pavucontrol"] floating enable
+for_window [class="qt5ct"] floating enable sticky enable border normal
+for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
+for_window [class="Simple-scan"] floating enable border normal
+for_window [class="(?i)System-config-printer.py"] floating enable border normal
+for_window [class="Skype"] floating enable border normal
+for_window [class="Thus"] floating enable border normal
+for_window [class="Timeset-gui"] floating enable border normal
+for_window [class="(?i)virtualbox"] floating enable border normal
+for_window [class="Xfburn"] floating enable
+
+# switch to workspace with urgent window automatically
+for_window [urgent=latest] focus
+
+# Autostart applications
+#exec --no-startup-id nitrogen --restore; sleep 1; compton -b
+exec_always --no-startup-id feh --bg-scale ~/.i3/pics/bg1.png
+#exec_always --no-startup-id ff-theme-util
+#exec_always --no-startup-id fix_xcursor
+exec --no-startup-id xrandr --output HDMI1 --auto --right-of eDP1
+
+# Color palette used for the terminal ( ~/.extend.Xresources file )
+# Colors are gathered based on the documentation:
+# https://i3wm.org/docs/userguide.html#xresources
+# Change the variable name at the place you want to match the color
+# of your terminal like this:
+# [example]
+# If you want your bar to have the same background color as your
+# terminal background change the line 362 from:
+# background  $i3_background
+# to:
+# background $term_background
+# Same logic applied to everything else.
+set_from_resource $term_background background
+set_from_resource $term_foreground foreground
+set_from_resource $term_color0     color0
+set_from_resource $term_color1     color1
+set_from_resource $term_color2     color2
+set_from_resource $term_color3     color3
+set_from_resource $term_color4     color4
+set_from_resource $term_color5     color5
+set_from_resource $term_color6     color6
+set_from_resource $term_color7     color7
+set_from_resource $term_color8     color8
+set_from_resource $term_color9     color9
+set_from_resource $term_color10    color10
+set_from_resource $term_color11    color11
+set_from_resource $term_color12    color12
+set_from_resource $term_color13    color13
+set_from_resource $term_color14    color14
+set_from_resource $term_color15    color15
+
+# Color palette used for i3
+# Variables are set based on the documentation:
+# https://i3wm.org/dovs/userguide.html#variables
+# Changing the value of one of the variables will
+# effect all the areas with the same color.
+set $i3_background      #101010
+set $i3_text            #f9faf9
+set $i3_separator       #454947
+set $i3_color1          #f9faf9
+set $i3_color2          #595b5b
+set $i3_color3          #353836
+set $i3_color4          #16a085
+set $i3_color5          #fdf6e3
+set $i3_color6          #eee8d5
+set $i3_color7          #e5201d
+set $i3_color8          #808380
+set $i3_color9          #434745
+set $i3_color10         #454948
+set $i3_color11         #80fff9
+set $i3_color12         #fdf6e3
+set $i3_color13         #cb4b16
+set $i3_color14         #268bd2
+set $i3_color15         #000000
+set $i3_color16         #ffffff
+set $i3_color17         #0c0c0c
+
+# Start i3bar to display a workspace bar (plus the system information i3status if available)
+bar {
+	font xft:Noto Sans, FontAwesome 10
+	i3bar_command i3bar
+	status_command i3blocks -c ~/.i3/i3blocks.conf
+	# status_command i3status
+	position top
+	height 18
+
+## please set your primary output first. Example: 'xrandr --output eDP1 --primary'
+	#tray_output primary
+#	tray_output eDP1
+
+	bindsym button4 nop
+	bindsym button5 nop
+	strip_workspace_numbers yes
+
+	colors {
+        background $i3_background
+        statusline $i3_text
+        separator  $i3_separator
+
+#                           border     backgr.        text
+        focused_workspace   $i3_color4 $i3_color4     $i3_text
+        active_workspace    $i3_color2 $i3_color3     $i3_color5
+        inactive_workspace  $i3_color2 $i3_color3     $i3_color6
+        binding_mode        $i3_color8 $i3_background $i3_text
+        urgent_workspace    $i3_color4 $i3_color5     $i3_color7
+    }
+}
+
+
+# Theme colors
+# class                 border      backgr.     text        indic.      child_border
+client.focused          $i3_color8  $i3_color8  $i3_color11 $i3_color12
+client.focused_inactive $i3_color9  $i3_color9  $i3_color4  $i3_color10
+client.unfocused        $i3_color9  $i3_color9  $i3_color4  $i3_color10
+client.urgent           $i3_color13 $i3_color12 $i3_color4  $i3_color14
+client.placeholder      $i3_color15 $i3_color17 $i3_color16 $i3_color15 $i3_color17
+
+client.background       $i3_background
+
