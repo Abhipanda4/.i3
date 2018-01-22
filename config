@@ -43,16 +43,16 @@ bindsym Mod1+Shift+Right move right
 #|----------------Workspace Settings-----------------------|
 #|---------------------------------------------------------|
 
-set $ws1 "1:"
-set $ws2 "2:"
-set $ws3 "3:"
-set $ws4 "4:"
-set $ws5 "5:"
-set $ws6 "6:"
-set $ws7 "7:"
-set $ws8 "8:"
-set $ws9 "9:"
-set $ws0 "10:"
+set $ws1 "1:  "
+set $ws2 "2:  "
+set $ws3 "3:  "
+set $ws4 "4:  "
+set $ws5 "5:  "
+set $ws6 "6:  "
+set $ws7 "7:  "
+set $ws8 "8:  "
+set $ws9 "9:  "
+set $ws0 "10:  "
 
 # divide the workspace between 2 monitors
 workspace $ws1 output eDP1
@@ -121,47 +121,30 @@ mode "POWERMODE"
 	bindsym l exec pkill -u $USER
 	bindsym s exec shutdown +0
 	bindsym r exec reboot
-	bindsym i mode "default"; exec blurlock
-	#bindsym i mode "default"; ./scripts/i3locker.sh
+	bindsym i mode "default"; exec sh ~/.i3/scripts/fancylock.sh
 	bindsym Escape mode "default"
 }
 
 bindsym Mod1+p mode "POWERMODE"
 
-mode "APPLAUNCHER"
-{
-	bindsym c exec pcmanfm; mode "default"
-	bindsym f exec firefox;mode "default"
-	bindsym Escape mode "default"
-	bindsym space mode "default"
-}
-
-Bindsym Mod1+a mode "APPLAUNCHER"
 bindsym Mod1+d exec rofi -show run
 bindsym XF86AudioRaiseVolume exec "amixer -D pulse sset Master '5%+'"
 bindsym XF86AudioLowerVolume exec "amixer -D pulse sset Master '5%-'"
-
 # start a terminal
 bindsym Mod1+Return exec termite
-
 # kill focused window
 bindsym Mod1+q kill
-
 # horizontal and vertical split
 bindsym Mod1+v split toggle
-
 # enter fullscreen mode for the focused container
 bindsym Mod1+f fullscreen toggle
-
 # change container layout (stacked, tabbed, toggle split)
 bindsym Mod1+s layout stacking
 bindsym Mod1+w layout tabbed
 bindsym Mod1+e layout toggle split
-
 bindsym Mod1+Shift+space floating toggle
 # change focus between tiling / floating windows
 bindsym Mod1+space focus mode_toggle
-
 # move the currently focused window to the scratchpad
 bindsym Mod1+Shift+minus move scratchpad
 # Show the next scratchpad window or hide the focused scratchpad window.
@@ -178,28 +161,30 @@ bindsym Mod1+minus scratchpad show
 
 #Focus and float settings
 for_window [class="Firefox"]        focus
-
-
 #assign workspaces to different apps
-assign [class="Chromium-browser"]	$ws9
 assign [class="Firefox"]			$ws5
 assign [class="Gimp"]				$ws6
+assign [class="TeXstudio"]			$ws6
 assign [class="Thunderbird"]		$ws7
-assign [class="Evince"]				$ws8
+assign [class="Epdfview"]			$ws8
+assign [class="Evince"]	    		$ws8
+assign [class="Chromium-browser"]	$ws9
 assign [class="qBittorrent"]		$ws0
 
-
 #Startup applications
+exec_always --no-startup-id feh --bg-scale ~/.i3/pics/bg1.png
+exec --no-startup-id xrandr --output HDMI1 --auto --right-of eDP1
+
 exec firefox
 exec chromium-browser
 exec thunderbird
-exec pcmanfm
-
 
 #exec_always compton -f
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 exec --no-startup-id pulseaudio
+exec_always --no-startup-id dunst
+exec --no-startup-id mpd
 
 
 mode "gaps_inner" {
@@ -235,8 +220,8 @@ bindsym Mod1+i mode "gaps_inner"
 bindsym Mod1+o mode "gaps_outer"
 
 # Screen brightness controls
-bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'brightness up'"
-bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness down'"
+bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'Brightness up'"
+bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'Brightness down'"
 
 bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
 bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
@@ -271,14 +256,7 @@ for_window [class="(?i)virtualbox"] floating enable border normal
 for_window [class="Xfburn"] floating enable
 
 # switch to workspace with urgent window automatically
-for_window [urgent=latest] focus
-
-# Autostart applications
-#exec --no-startup-id nitrogen --restore; sleep 1; compton -b
-exec_always --no-startup-id feh --bg-scale ~/.i3/pics/bg1.png
-#exec_always --no-startup-id ff-theme-util
-#exec_always --no-startup-id fix_xcursor
-exec --no-startup-id xrandr --output HDMI1 --auto --right-of eDP1
+#for_window [urgent=latest] focus
 
 # Color palette used for the terminal ( ~/.extend.Xresources file )
 # Colors are gathered based on the documentation:
@@ -327,7 +305,7 @@ set $i3_color5          #fdf6e3
 set $i3_color6          #eee8d5
 set $i3_color7          #e5201d
 set $i3_color8          #808380
-set $i3_color9          #434745
+set $i3_color9          #212121
 set $i3_color10         #454948
 set $i3_color11         #80fff9
 set $i3_color12         #fdf6e3
@@ -336,6 +314,7 @@ set $i3_color14         #268bd2
 set $i3_color15         #000000
 set $i3_color16         #ffffff
 set $i3_color17         #0c0c0c
+set $i3_color18         #696969
 
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
 bar {
@@ -361,21 +340,19 @@ bar {
 
 #                           border     backgr.        text
         focused_workspace   $i3_color4 $i3_color4     $i3_text
-        active_workspace    $i3_color2 $i3_color3     $i3_color5
+        active_workspace    $i3_color4 $i3_color5     $i3_color4
         inactive_workspace  $i3_color2 $i3_color3     $i3_color6
-        binding_mode        $i3_color8 $i3_background $i3_text
+        binding_mode        $i3_color8 $i3_color13    $i3_text
         urgent_workspace    $i3_color4 $i3_color5     $i3_color7
     }
 }
 
 
 # Theme colors
-# class                 border      backgr.     text        indic.      child_border
-client.focused          $i3_color8  $i3_color8  $i3_color11 $i3_color12
-client.focused_inactive $i3_color9  $i3_color9  $i3_color4  $i3_color10
-client.unfocused        $i3_color9  $i3_color9  $i3_color4  $i3_color10
-client.urgent           $i3_color13 $i3_color12 $i3_color4  $i3_color14
-client.placeholder      $i3_color15 $i3_color17 $i3_color16 $i3_color15 $i3_color17
-
+# class                 border         backgr.        text          indic.      child_border
+client.focused          $i3_background $i3_background $i3_color11   $i3_color12 $i3_color18
+client.focused_inactive $i3_color9     $i3_color9     $i3_color4    $i3_color10
+client.unfocused        $i3_color9     $i3_color9     $i3_color4    $i3_color10
+client.urgent           $i3_color13    $i3_color12    $i3_color4    $i3_color14
+client.placeholder      $i3_color15    $i3_color17    $i3_color16   $i3_color15 $i3_color17
 client.background       $i3_background
-
