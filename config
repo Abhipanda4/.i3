@@ -172,7 +172,7 @@ assign [class="Chromium-browser"]	$ws9
 assign [class="qBittorrent"]		$ws0
 
 #Startup applications
-exec_always --no-startup-id feh --bg-scale ~/.i3/pics/bg1.png
+exec_always --no-startup-id feh --bg-scale ~/.i3/pics/scenic1.png
 exec --no-startup-id xrandr --output HDMI1 --auto --right-of eDP1
 
 exec firefox
@@ -184,6 +184,7 @@ exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 exec --no-startup-id pulseaudio
 exec_always --no-startup-id dunst
+exec_always --no-startup-id "sleep 15 && while true; do ~/.i3/scripts/low_battery_indicator.sh; sleep 300; done"
 exec --no-startup-id mpd
 
 
@@ -220,8 +221,8 @@ bindsym Mod1+i mode "gaps_inner"
 bindsym Mod1+o mode "gaps_outer"
 
 # Screen brightness controls
-bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'Brightness up'"
-bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'Brightness down'"
+bindsym XF86MonBrightnessUp exec "light -A 5; notify-send 'Brightness up'"
+bindsym XF86MonBrightnessDown exec "light -U 5; notify-send 'Brightness down'"
 
 bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
 bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
