@@ -1,5 +1,6 @@
 set $mod Mod1
-font xft:Noto Sans 10, Awesome 10
+#font xft:Noto Sans 10, Awesome 10
+font pango:Terminus 8
 # arrows are not convenient
 set $up k
 set $down j
@@ -301,7 +302,7 @@ set $i3_separator       #454947
 set $i3_color1          #f9faf9
 set $i3_color2          #595b5b
 set $i3_color3          #353836
-set $i3_color4          #16a085
+set $i3_color4          #2aa198
 set $i3_color5          #fdf6e3
 set $i3_color6          #eee8d5
 set $i3_color7          #e5201d
@@ -319,22 +320,18 @@ set $i3_color18         #696969
 
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
 bar {
-	font xft:Noto Sans, FontAwesome 10
-	i3bar_command i3bar
-	status_command i3blocks -c ~/.i3/i3blocks.conf
-	# status_command i3status
-	position top
-	height 18
+    font xft:Noto Sans, FontAwesome 11
+    i3bar_command i3bar
+    status_command i3blocks -c ~/.i3/i3blocks.conf
+    position top
+    height 19
 
 ## please set your primary output first. Example: 'xrandr --output eDP1 --primary'
-	#tray_output primary
-#	tray_output eDP1
+    bindsym button4 nop
+    bindsym button5 nop
+    strip_workspace_numbers yes
 
-	bindsym button4 nop
-	bindsym button5 nop
-	strip_workspace_numbers yes
-
-	colors {
+    colors {
         background $i3_background
         statusline $i3_text
         separator  $i3_separator
