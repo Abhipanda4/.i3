@@ -11,7 +11,7 @@ set $right l
 focus_follows_mouse no
 
 #for_window [class="^.*"] border pixel 0
-gaps inner 15
+gaps inner 10
 gaps outer 0
 
 smart_gaps on
@@ -173,7 +173,7 @@ assign [class="Chromium-browser"]	$ws9
 assign [class="qBittorrent"]		$ws0
 
 #Startup applications
-exec_always --no-startup-id feh --bg-scale ~/.i3/pics/scenic1.png
+exec_always --no-startup-id feh --bg-scale ~/.i3/pics/crisis3.jpg
 exec --no-startup-id xrandr --output HDMI1 --auto --right-of eDP1
 
 exec firefox
@@ -184,6 +184,8 @@ exec thunderbird
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 exec --no-startup-id pulseaudio
+exec_always --no-startup-id compton -CG
+exec_always --no-startup-id scripts/launch.sh
 exec_always --no-startup-id dunst
 exec_always --no-startup-id "sleep 15 && while true; do ~/.i3/scripts/low_battery_indicator.sh; sleep 300; done"
 exec --no-startup-id mpd
@@ -320,29 +322,30 @@ set $i3_color18         #696969
 
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
 bar {
-    font xft:Noto Sans, FontAwesome 11
-    i3bar_command i3bar
-    status_command i3blocks -c ~/.i3/i3blocks.conf
-    position top
-    height 19
+    #font xft:Noto Sans, FontAwesome 11
+    #i3bar_command i3bar
+    status_command polybar -c ~/.config/polybar/config.orig
+    #status_command i3blocks -c ~/.i3/i3blocks.conf
+    #position top
+    #height 19
 
-## please set your primary output first. Example: 'xrandr --output eDP1 --primary'
-    bindsym button4 nop
-    bindsym button5 nop
-    strip_workspace_numbers yes
+### please set your primary output first. Example: 'xrandr --output eDP1 --primary'
+    #bindsym button4 nop
+    #bindsym button5 nop
+    #strip_workspace_numbers yes
 
-    colors {
-        background $i3_background
-        statusline $i3_text
-        separator  $i3_separator
+    #colors {
+        #background $i3_background
+        #statusline $i3_text
+        #separator  $i3_separator
 
-#                           border     backgr.        text
-        focused_workspace   $i3_color4 $i3_color4     $i3_text
-        active_workspace    $i3_color4 $i3_color5     $i3_color4
-        inactive_workspace  $i3_color2 $i3_color3     $i3_color6
-        binding_mode        $i3_color8 $i3_color13    $i3_text
-        urgent_workspace    $i3_color4 $i3_color5     $i3_color7
-    }
+##                           border     backgr.        text
+        #focused_workspace   $i3_color4 $i3_color4     $i3_text
+        #active_workspace    $i3_color4 $i3_color5     $i3_color4
+        #inactive_workspace  $i3_color2 $i3_color3     $i3_color6
+        #binding_mode        $i3_color8 $i3_color13    $i3_text
+        #urgent_workspace    $i3_color4 $i3_color5     $i3_color7
+    #}
 }
 
 
