@@ -1,13 +1,13 @@
 set $mod Mod1
 #font xft:Noto Sans 10, Awesome 10
-font pango:Terminus 8
+font pango:Hack 8
 # arrows are not convenient
 set $up k
 set $down j
 set $left h
 set $right l
 
-#floating_modifier Mod1
+#floating_modifier $mod
 focus_follows_mouse no
 
 #for_window [class="^.*"] border pixel 0
@@ -24,29 +24,29 @@ hide_edge_borders smart
 #-------------------------------------------------------------------------|
 
 # change focus
-bindsym Mod1+$left focus left
-bindsym Mod1+$down focus down
-bindsym Mod1+$up focus up
-bindsym Mod1+$right focus right
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
 
 # move focused window
-bindsym Mod1+Shift+$left move left
-bindsym Mod1+Shift+$down move down
-bindsym Mod1+Shift+$up move up
-bindsym Mod1+Shift+$right move right
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
 
 # alternatively, you can use the cursor keys:
-bindsym Mod1+Shift+Left move left
-bindsym Mod1+Shift+Down move down
-bindsym Mod1+Shift+Up move up
-bindsym Mod1+Shift+Right move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
 
 #|----------------Workspace Settings-----------------------|
 #|---------------------------------------------------------|
 
 set $ws1 "1:  "
 set $ws2 "2:  "
-set $ws3 "3:  "
+set $ws3 "3:  "
 set $ws4 "4:  "
 set $ws5 "5:  "
 set $ws6 "6:  "
@@ -67,41 +67,41 @@ workspace $ws9 output HDMI1
 workspace $ws0 output eDP1
 
 # switch to workspace
-bindsym Mod1+1 workspace $ws1
-bindsym Mod1+2 workspace $ws2
-bindsym Mod1+3 workspace $ws3
-bindsym Mod1+4 workspace $ws4
-bindsym Mod1+5 workspace $ws5
-bindsym Mod1+6 workspace $ws6
-bindsym Mod1+7 workspace $ws7
-bindsym Mod1+8 workspace $ws8; layout tabbed
-bindsym Mod1+9 workspace $ws9
-bindsym Mod1+0 workspace $ws0
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8; layout tabbed
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws0
 
 
 # move focused container to workspace
-bindsym Mod1+Shift+1 move container to workspace $ws1
-bindsym Mod1+Shift+2 move container to workspace $ws2
-bindsym Mod1+Shift+3 move container to workspace $ws3
-bindsym Mod1+Shift+4 move container to workspace $ws4
-bindsym Mod1+Shift+5 move container to workspace $ws5
-bindsym Mod1+Shift+6 move container to workspace $ws6
-bindsym Mod1+Shift+7 move container to workspace $ws7
-bindsym Mod1+Shift+8 move container to workspace $ws8
-bindsym Mod1+Shift+9 move container to workspace $ws9
-bindsym Mod1+Shift+0 move container to workspace $ws0
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws0
 
-bindsym Mod1+Tab workspace back_and_forth
+bindsym $mod+Tab workspace back_and_forth
 
-Bindsym Mod1+Shift+w move workspace to output left
-Bindsym Mod1+Shift+e move workspace to output right
+Bindsym $mod+Shift+w move workspace to output left
+Bindsym $mod+Shift+e move workspace to output right
 
 #-----------------------Custom modes-----------------------------|
 #----------------------------------------------------------------|
 
 
-#bindsym Mod1+Shift+r reload
-bindsym Mod1+Shift+r exec i3-msg restart
+#bindsym $mod+Shift+r reload
+bindsym $mod+Shift+r exec i3-msg restart
 
 mode "RESIZE"
 {
@@ -115,7 +115,7 @@ mode "RESIZE"
 	bindsym Return mode "default"
 }
 
-bindsym Mod1+r mode "RESIZE"
+bindsym $mod+r mode "RESIZE"
 
 mode "POWERMODE"
 {
@@ -126,31 +126,31 @@ mode "POWERMODE"
 	bindsym Escape mode "default"
 }
 
-bindsym Mod1+p mode "POWERMODE"
+bindsym $mod+p mode "POWERMODE"
 
-bindsym Mod1+d exec rofi -show run
+bindsym $mod+d exec rofi -show run
 bindsym XF86AudioRaiseVolume exec "amixer -D pulse sset Master '5%+'"
 bindsym XF86AudioLowerVolume exec "amixer -D pulse sset Master '5%-'"
 # start a terminal
-bindsym Mod1+Return exec termite
+bindsym $mod+Return exec termite
 # kill focused window
-bindsym Mod1+q kill
+bindsym $mod+q kill
 # horizontal and vertical split
-bindsym Mod1+v split toggle
+bindsym $mod+v split toggle
 # enter fullscreen mode for the focused container
-bindsym Mod1+f fullscreen toggle
+bindsym $mod+f fullscreen toggle
 # change container layout (stacked, tabbed, toggle split)
-bindsym Mod1+s layout stacking
-bindsym Mod1+w layout tabbed
-bindsym Mod1+e layout toggle split
-bindsym Mod1+Shift+space floating toggle
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+bindsym $mod+Shift+space floating toggle
 # change focus between tiling / floating windows
-bindsym Mod1+space focus mode_toggle
+bindsym $mod+space focus mode_toggle
 # move the currently focused window to the scratchpad
-bindsym Mod1+Shift+minus move scratchpad
+bindsym $mod+Shift+minus move scratchpad
 # Show the next scratchpad window or hide the focused scratchpad window.
 # If there are multiple scratchpad windows, this command cycles through them.
-bindsym Mod1+minus scratchpad show
+bindsym $mod+minus scratchpad show
 
 #|--------------------Workspace Assigns & Startup---------------------|
 #|--------------------------------------------------------------------|
@@ -169,7 +169,7 @@ assign [class="TeXstudio"]			$ws6
 assign [class="Thunderbird"]		$ws7
 assign [class="Epdfview"]			$ws8
 assign [class="Evince"]	    		$ws8
-assign [class="Chromium-browser"]	$ws9
+assign [class="Chromium"]	$ws9
 assign [class="qBittorrent"]		$ws0
 
 #Startup applications
@@ -177,18 +177,19 @@ exec_always --no-startup-id feh --bg-scale ~/.i3/pics/crisis3.jpg
 exec --no-startup-id xrandr --output HDMI1 --auto --right-of eDP1
 
 exec firefox
-exec chromium-browser
+exec chromium
 exec thunderbird
 
 #exec_always compton -f
-exec --no-startup-id nm-applet
-exec --no-startup-id blueman-applet
-exec --no-startup-id pulseaudio
 exec_always --no-startup-id compton -CG
-exec_always --no-startup-id scripts/launch.sh
 exec_always --no-startup-id dunst
 exec_always --no-startup-id "sleep 15 && while true; do ~/.i3/scripts/low_battery_indicator.sh; sleep 300; done"
 exec --no-startup-id mpd
+exec --no-startup-id nm-applet
+exec --no-startup-id dropbox
+exec --no-startup-id blueman-applet
+exec --no-startup-id pulseaudio
+exec_always --no-startup-id sh ~/.i3/scripts/launch.sh
 
 
 mode "gaps_inner" {
@@ -220,8 +221,8 @@ mode "gaps_outer" {
 		bindsym Return mode "default"
 		bindsym Escape mode "default"
 }
-bindsym Mod1+i mode "gaps_inner"
-bindsym Mod1+o mode "gaps_outer"
+bindsym $mod+i mode "gaps_inner"
+bindsym $mod+o mode "gaps_outer"
 
 # Screen brightness controls
 bindsym XF86MonBrightnessUp exec "light -A 5; notify-send 'Brightness up'"
@@ -319,12 +320,13 @@ set $i3_color15         #000000
 set $i3_color16         #ffffff
 set $i3_color17         #0c0c0c
 set $i3_color18         #696969
+set $i3_color19         #404040
 
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
-bar {
+#bar {
     #font xft:Noto Sans, FontAwesome 11
     #i3bar_command i3bar
-    status_command polybar -c ~/.config/polybar/config.orig
+    #status_command polybar -c ~/.config/polybar/config.orig
     #status_command i3blocks -c ~/.i3/i3blocks.conf
     #position top
     #height 19
@@ -346,12 +348,12 @@ bar {
         #binding_mode        $i3_color8 $i3_color13    $i3_text
         #urgent_workspace    $i3_color4 $i3_color5     $i3_color7
     #}
-}
+#}
 
 
 # Theme colors
 # class                 border         backgr.        text          indic.      child_border
-client.focused          $i3_background $i3_background $i3_color11   $i3_color12 $i3_color18
+client.focused          $i3_background $i3_background $i3_color11   $i3_color12 $i3_color19
 client.focused_inactive $i3_color9     $i3_color9     $i3_color4    $i3_color10
 client.unfocused        $i3_color9     $i3_color9     $i3_color4    $i3_color10
 client.urgent           $i3_color13    $i3_color12    $i3_color4    $i3_color14
