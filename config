@@ -44,16 +44,16 @@ bindsym $mod+Shift+Right move right
 #|----------------Workspace Settings-----------------------|
 #|---------------------------------------------------------|
 
-set $ws1 "1:  "
-set $ws2 "2:  "
-set $ws3 "3:  "
-set $ws4 "4:  "
-set $ws5 "5:  "
-set $ws6 "6:  "
-set $ws7 "7:  "
-set $ws8 "8:  "
-set $ws9 "9:  "
-set $ws0 "10:  "
+set $ws1 "1:   "
+set $ws2 "2:   "
+set $ws3 "3:   "
+set $ws4 "4:   "
+set $ws5 "5:   "
+set $ws6 "6:   "
+set $ws7 "7:   "
+set $ws8 "8:   "
+set $ws9 "9:   "
+set $ws0 "10:   "
 
 # divide the workspace between 2 monitors
 workspace $ws1 output eDP1
@@ -162,18 +162,19 @@ bindsym $mod+minus scratchpad show
 
 #Focus and float settings
 for_window [class="Firefox"]        focus
-#assign workspaces to different apps
+
+# assign workspaces to different apps
 assign [class="Firefox"]			$ws5
 assign [class="Gimp"]				$ws6
 assign [class="TeXstudio"]			$ws6
 assign [class="Thunderbird"]		$ws7
 assign [class="Epdfview"]			$ws8
 assign [class="Evince"]	    		$ws8
-assign [class="Chromium"]	$ws9
+assign [class="Chromium"]	        $ws9
 assign [class="qBittorrent"]		$ws0
 
 #Startup applications
-exec_always --no-startup-id feh --bg-scale ~/.i3/pics/crisis3.jpg
+exec_always --no-startup-id feh --bg-scale ~/.i3/pics/mountains.jpg
 exec --no-startup-id xrandr --output HDMI1 --auto --right-of eDP1
 
 exec firefox
@@ -321,35 +322,6 @@ set $i3_color16         #ffffff
 set $i3_color17         #0c0c0c
 set $i3_color18         #696969
 set $i3_color19         #404040
-
-# Start i3bar to display a workspace bar (plus the system information i3status if available)
-#bar {
-    #font xft:Noto Sans, FontAwesome 11
-    #i3bar_command i3bar
-    #status_command polybar -c ~/.config/polybar/config.orig
-    #status_command i3blocks -c ~/.i3/i3blocks.conf
-    #position top
-    #height 19
-
-### please set your primary output first. Example: 'xrandr --output eDP1 --primary'
-    #bindsym button4 nop
-    #bindsym button5 nop
-    #strip_workspace_numbers yes
-
-    #colors {
-        #background $i3_background
-        #statusline $i3_text
-        #separator  $i3_separator
-
-##                           border     backgr.        text
-        #focused_workspace   $i3_color4 $i3_color4     $i3_text
-        #active_workspace    $i3_color4 $i3_color5     $i3_color4
-        #inactive_workspace  $i3_color2 $i3_color3     $i3_color6
-        #binding_mode        $i3_color8 $i3_color13    $i3_text
-        #urgent_workspace    $i3_color4 $i3_color5     $i3_color7
-    #}
-#}
-
 
 # Theme colors
 # class                 border         backgr.        text          indic.      child_border
