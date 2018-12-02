@@ -1,4 +1,0 @@
-#!/bin/bash
-
-ram=$(free -h|grep Mem|awk '{print $NF " "}')
-echo $ram
